@@ -1,0 +1,13 @@
+{
+  "name": "まとめユーティリティ",
+  "version": "0.1",
+  "manifest_version": 2,
+  "description": "Add buttons to open only images.",
+  "content_scripts": [
+    {
+      "matches": ["http://*/*"],
+      "js": ["jquery-2.0.3-min.js","ImageTiler.js", "TargetOpener.js", "Initializer.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
