@@ -7,15 +7,17 @@ var ImageTiler = function ImageTiler($button) {
 	/** 画像リンク */
 	this.imgs = [];
 	/** 拡張子正規表現 */
-	this.imgRegexp = /(\.jpg|\.jpeg|\.png|\.gif)/i;
+	this.imgRegexp = /(\.jpg|\.jpeg|\.png|\.gif|imepic)/i;
 	/**
 	 * 相対パスを絶対パス化します。
 	 **/
-	this.toAbs = function(path) {
+	this.toAbs = function(path, hostUrl) {
 		if (/(^http:\/\/|^https:\/\/)/.test(path)) { // http://〜, https://〜
 			return path;
 		}
-		var hostUrl = location.protocol + "//" + location.host;
+		if (!hostUrl) {
+			hostUrl = location.protocol + "//" + location.host;
+		}
 		if (/^\//.test(path)) { // /〜
 			return hostUrl + path;
 		}
@@ -98,12 +100,49 @@ var proto = {
 			});
 			$newBd.append($expanded);
 		});
-		$.each(this.imgs, function(i, img) {
-			$img = $("<img class='img'>").attr({"src":img, height:"200px", width:"200px"});
+		var self = this;
+		var prevUrls = [];
+		$whole.on('append', function(e, url) {
+			var exists = _.find(prevUrls, function(prevUrl) {
+				return prevUrl === url;
+			});
+			if (exists) {
+				return;
+			}
+			prevUrls.push(url);
+			_.uniq(prevUrls);
+			$img = $("<img class='img'>").attr({"src":url, height:"200px", width:"200px"});
 			$whole.append($img);
+		})
+		$.each(this.imgs, function(i, imgUrl) {
+			self.fetchImg(imgUrl, $whole);
 		});
 		$newBd.append($whole);
 	},
+	fetchImg : function(url, $whole) {
+		var self = this;
+		$.ajax({
+			url : url,
+			method : 'GET'
+		}).done(function(data, status, xhr) {
+			if (xhr.status != 200) {
+				return;
+			}
+			var contentType = xhr.getResponseHeader("Content-Type");
+			if (/^image\/.+/.test(contentType)) {
+				$whole.trigger('append', url);
+			} else if (/text\/html/.test(contentType)) {
+				var largestImg = _.max($(data).find('img'), function(img) {
+					img = $(img);
+					return img.height() * img.width();
+				});
+				if ($(largestImg).attr('src')) {
+					url = /https?:\/\/[a-z|\.]+?\//.exec(url)[0]
+					$whole.trigger('append', self.toAbs($(largestImg).attr('src'), url));
+				}
+			}
+		});
+	}
 }
 ImageTiler.prototype = proto;
 window.ImageTiler = ImageTiler;
