@@ -123,7 +123,10 @@ var proto = {
 		var self = this;
 		$.ajax({
 			url : url,
-			method : 'GET'
+			method : 'GET',
+			beforeSend : function(request) {
+				//request.setRequestHeader("User-Agent", navigator.userAgent);
+			}
 		}).done(function(data, status, xhr) {
 			if (xhr.status != 200) {
 				return;
