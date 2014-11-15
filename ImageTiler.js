@@ -140,7 +140,7 @@ var proto = {
 					return img.height() * img.width();
 				});
 				if ($(largestImg).attr('src')) {
-					url = /https?:\/\/[a-z|\.]+?\//.exec(url)[0]
+					url = new URL(url).origin
 					$whole.trigger('append', self.toAbs($(largestImg).attr('src'), url));
 				}
 			}
