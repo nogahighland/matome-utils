@@ -55,8 +55,15 @@ var proto = {
 			a = $(a);
 			if (self.imgRegexp.test(a.attr("href"))) {
 				var href = a.attr("href");
-				if (self.imgRegexp.test(a.text())) {
-					href = a.text();
+				var textNodes = a.contents().filter(function() {
+					return this.nodeType == 3;
+				});
+				if (textNodes && textNodes.length) {
+					$.each(textNodes, function() {
+						if (self.imgRegexp.test(this)) {
+							href = this;
+						}
+					});
 				}
 				var absPath = self.toAbs(href);
 				self.imgs.push(absPath);
