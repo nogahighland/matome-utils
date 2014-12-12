@@ -142,14 +142,15 @@ var proto = {
 			if (/^image\/.+/.test(contentType)) {
 				$whole.trigger('append', url);
 			} else if (/text\/html/.test(contentType)) {
-				var largestImg = _.max($(data).find('img'), function(img) {
-					img = $(img);
-					return img.height() * img.width();
+				_.each($(data).find('img'), function(img) {
+					var $img = $(img);
+					$img.load(function() {
+						if (this.height > 300 && this.width > 300) {
+							url = new URL(url).origin
+							$whole.trigger('append', self.toAbs($(this).attr('src'), url));
+						}
+					});
 				});
-				if ($(largestImg).attr('src')) {
-					url = new URL(url).origin
-					$whole.trigger('append', self.toAbs($(largestImg).attr('src'), url));
-				}
 			}
 		});
 	}
