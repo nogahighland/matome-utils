@@ -17,7 +17,7 @@ var proto = {
 			if((new RegExp(title)).test(t.text())) {
 				self.url = t.attr("href");
 			}
-		});	
+		});
 	},
 	/**
 	 * ボタン初期化処理

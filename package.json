@@ -1,0 +1,32 @@
+{
+  "name": "matome-utils",
+  "version": "0.0.1",
+  "description": "Chromeブラウザのpluginです。",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nogahighland/matome-utils.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nogahighland/matome-utils/issues"
+  },
+  "homepage": "https://github.com/nogahighland/matome-utils#readme",
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.1",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-load-plugins": "^1.4.0",
+    "require-dir": "^0.3.1",
+    "through2": "^2.0.3"
+  }
+}

@@ -21,7 +21,7 @@ var ImageTiler = function ImageTiler($button) {
 		if (/^\//.test(path)) { // /〜
 			return hostUrl + path;
 		}
-		// ./ や ../の相対パスが含まれる場合	
+		// ./ や ../の相対パスが含まれる場合
 		var relatives	= path.split('/');
 
 		var pathParts = location.href.replace(hostUrl + '/', '').split('/');
@@ -50,7 +50,7 @@ var proto = {
 	 * 初期化前処理
 	 **/
 	prepare : function() {
-		var self = this; 
+		var self = this;
 		$("a").each(function(i, a) {
 			a = $(a);
 			if (self.imgRegexp.test(a.attr("href"))) {
