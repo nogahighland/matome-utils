@@ -2,5 +2,5 @@
 import gulp from 'gulp';
 
 gulp.task('watch', () => {
-  gulp.watch('./src/javascript/**/*.{js,jsx}', ['js']);
+  gulp.watch('./src/javascript/**/*.js', ['js']);
 });

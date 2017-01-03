@@ -6,7 +6,7 @@
   "content_scripts": [
     {
       "matches": ["http://*/*"],
-      "js": ["jquery-2.0.3-min.js" ,"lodash-2.4.1-min.js","ImageTiler.js", "TargetOpener.js", "Initializer.js"],
+      "js": ["index.min.js"],
       "run_at": "document_end"
     }
   ]

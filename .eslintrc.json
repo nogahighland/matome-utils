@@ -1,0 +1,9 @@
+{
+  "ecmaFeatures": {
+    "arrowFunctions": true
+  },
+  "rules": {
+    "arrow-body-style": ["warn", "as-needed"]
+  },
+  "extends": ["airbnb"]
+}

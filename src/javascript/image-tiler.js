@@ -1,3 +1,5 @@
+import $ from 'jquery'
+import _ from 'lodash'
 /**
  * 画像タイルを開くクラス
  **/
@@ -118,7 +120,7 @@ var proto = {
 			}
 			prevUrls.push(url);
 			_.uniq(prevUrls);
-			$img = $("<img class='img'>").attr({"src":url, height:"200px", width:"200px"});
+			let $img = $("<img class='img'>").attr({"src":url, height:"200px", width:"200px"});
 			$whole.append($img);
 		})
 		$.each(this.imgs, function(i, imgUrl) {
@@ -156,4 +158,4 @@ var proto = {
 	}
 }
 ImageTiler.prototype = proto;
-window.ImageTiler = ImageTiler;
+export default ImageTiler

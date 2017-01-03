@@ -30,14 +30,14 @@ function buildJs(filePath, uglify) {
 }
 
 function transform(filePath) {
-  return gulp.src(`./src/javascript/${filePath}`, { base: 'gulp' })
+  return gulp.src(`./src/javascript/${filePath}`, { base: '' })
     .pipe($().plumber({ errorHandler: $().notify.onError('<%= error.message %>') }))
     .pipe(through2.obj(through2Cb));
 }
 
 function through2Cb(file, encode, callback) {
   browserify(file.path, { debug: false })
-    .transform(babelify, { presets: ['es2015', 'react'] })
+    .transform(babelify, { presets: [['es2015']] })
     .bundle((error, response) => {
       if (error) { return callback(error); }
       file.contents = response;

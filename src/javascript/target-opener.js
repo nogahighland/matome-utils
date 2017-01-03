@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 var TargetOpener = function($button) {
 	this.$button = $button;
 	this.url = "";
@@ -13,8 +15,8 @@ var proto = {
 		var title=$("head").find("title").text().trim().substring(0,10);
 		var self = this;
 		$("a").each(function(e,t){
-			t=$(t);
-			if((new RegExp(title)).test(t.text())) {
+			t = $(t);
+			if ((new RegExp(title)).test(t.text())) {
 				self.url = t.attr("href");
 			}
 		});
@@ -46,4 +48,4 @@ var proto = {
 	}
 }
 TargetOpener.prototype = proto;
-window.TargetOpener = TargetOpener;
+export default TargetOpener

@@ -1,3 +1,7 @@
+import $ from 'jquery'
+import ImageTiler from './image-tiler'
+import TargetOpener from './target-opener'
+
 var $tilerButton = $('<button>').text('このページの画像一覧表示');
 var $openerButton = $('<button>').text('さっき開いたまとめリンク開く');
 new ImageTiler($tilerButton);
