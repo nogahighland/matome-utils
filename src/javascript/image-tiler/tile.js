@@ -3,7 +3,6 @@ import _ from 'lodash'
 import { fetchImage } from './image'
 
 function tileImages(images) {
-  debugger
   var newWin = window.open(null, location.href);
   var $newBd = $(newWin.document).find("body");
   var $whole = $("<div>").on('click .img', (e) => {

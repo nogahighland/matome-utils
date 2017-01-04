@@ -3,25 +3,15 @@ import _ from 'lodash'
 import { toAbs } from './path'
 import { tileImages} from './tile'
 
-/**
- * 画像タイルを開くクラス
- **/
-var ImageTiler = function ImageTiler($button) {
-	/** ボタン */
-	this.$button = $button;
-	/** 画像リンク */
-	this.imgs = [];
-	/** 拡張子正規表現 */
-	this.imgRegexp = /(\.jpg|\.jpeg|\.png|\.gif|imepic)/i;
-	this.prepare();
-	this.initialize();
-}
-// prototype
-var proto = {
-	/**
-	 * 初期化前処理
-	 **/
-	prepare : function() {
+class ImageTiler {
+  constructor($button) {
+    this.$button = $button;
+    this.imgs = [];
+    this.imgRegexp = /(\.jpg|\.jpeg|\.png|\.gif|imepic)/i;
+    this.prepare();
+    this.initialize();
+  }
+	prepare() {
 		var self = this;
 		$("a").each(function(i, a) {
 			a = $(a);
@@ -41,11 +31,11 @@ var proto = {
 				self.imgs.push(absPath);
 			}
 		});
-	},
+	}
 	/**
 	 * ボタンの初期化
 	 */
-	initialize : function() {
+	initialize() {
 		var self = this;
 		if (this.containsImgs()) {
 			this.$button.click(function() {
@@ -54,13 +44,11 @@ var proto = {
 		} else {
 			this.$button.attr('disabled', true);
 		}
-	},
-	/**
-	 * 画像リンクを含むかどうか
-	 **/
-	containsImgs : function() {
+	}
+
+	containsImgs() {
 		return !!this.imgs.length
-	},
+	}
 }
-ImageTiler.prototype = proto;
+
 export default ImageTiler
