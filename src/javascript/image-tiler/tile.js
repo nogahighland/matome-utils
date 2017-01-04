@@ -1,11 +1,11 @@
 import $ from 'jquery'
 import _ from 'lodash'
-import { fetchImage } from './image'
+import { SearchedImage, fetchImage } from './image'
 
-function tileImages(images) {
+function tileImages(imageUrls) {
   var newWin = window.open(null, location.href);
   var $newBd = $(newWin.document).find("body");
-  var $whole = $("<div>").on('click .img', (e) => {
+  var $appendee = $("<div>").on('click .img', (e) => {
     var $targetImg = $(e.target);
     var $orgImg = $('<img>').attr({"src": $targetImg.attr('src')});
     var $expanded = $orgImg.css({
@@ -18,7 +18,7 @@ function tileImages(images) {
     $newBd.append($expanded);
   });
   var prevUrls = [];
-  $whole.on('append', (e, url) => {
+  $appendee.on('append', (e, url) => {
     var exists = _.find(prevUrls, (prevUrl) => {
       return prevUrl === url;
     });
@@ -28,12 +28,12 @@ function tileImages(images) {
     prevUrls.push(url);
     _.uniq(prevUrls);
     let $img = $("<img class='img'>").attr({"src":url, height:"200px", width:"200px"});
-    $whole.append($img);
+    $appendee.append($img);
   })
-  $.each(images, (i, imgUrl) => {
-    fetchImage(imgUrl, $whole);
+  $.each(imageUrls, (i, imageUrl) => {
+    new SearchedImage($appendee, imageUrl).appendImage();
   });
-  $newBd.append($whole);
+  $newBd.append($appendee);
 }
 
 export { tileImages }
