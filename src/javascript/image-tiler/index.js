@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import _ from 'lodash'
 import { toAbs } from './path'
-import { tileImages } from './tile'
+import TiledImagePage from './tile'
 import { isImage } from './image'
 
 class ImageTiler {
@@ -13,7 +13,7 @@ class ImageTiler {
   }
 
 	prepare() {
-		$("a").each(_.bind(this.getImageUrl, this));
+		$('a').each(_.bind(this.getImageUrl, this));
   }
 
   getImageUrl(i, a) {
@@ -44,7 +44,12 @@ class ImageTiler {
       this.$button.attr('disabled', true);
       return;
     }
-    this.$button.click(() => { _.bind(tileImages, this)(this.images) });
+    this.$button.on('click', _.bind(this.tileImages, this));
+    this.tile = new TiledImagePage(this.images);
+  }
+
+  tileImages() {
+    this.tile.tileImages();
   }
 
 	containsImages() {

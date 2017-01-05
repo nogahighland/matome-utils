@@ -4,30 +4,31 @@ import _ from 'lodash'
 const IMAGE_REGEXP = /(\.jpg|\.jpeg|\.png|\.gif|imepic)/i;
 
 class SearchedImage {
-  constructor($appendee, imageUrl) {
-    this.$appendee = $appendee;
+  constructor(imageUrl) {
     this.imageUrl = imageUrl;
   }
 
-  appendImage() {
+  appendImage($tiledArea) {
     $.ajax({
       url : this.imageUrl,
       method : 'GET',
     })
-    .done(_.bind(this.fetchDone, this))
+    .done(_.bind(this.fetchDone($tiledArea), this))
     .fail(() => {});
   }
 
-  fetchDone(data, status, xhr) {
-    if (xhr.status != 200) {
-      return;
-    }
-    const contentType = xhr.getResponseHeader("Content-Type");
-    if (this.isImage(contentType)) {
-      $appendee.trigger('append', imageUrl);
+  fetchDone($tiledArea) {
+    return (data, status, xhr) => {
+      if (xhr.status != 200) {
+        return;
+      }
+      const contentType = xhr.getResponseHeader('Content-Type');
+      if (this.isImage(contentType)) {
+        $tiledArea.trigger('append', imageUrl);
 
-    } else if (this.isHtml(contentType)) {
-      _.each($(data).find('img'), _.bind(this.appendIfLargeEnough, this));
+      } else if (this.isHtml(contentType)) {
+        _.each($(data).find('img'), _.bind(this.appendIfLargeEnough($tiledArea), this));
+      }
     }
   }
 
@@ -39,20 +40,21 @@ class SearchedImage {
     return /text\/html/.test(contentType);
   }
 
-  appendIfLargeEnough(image) {
-    const $image = $(image);
-    $image.bind('load', this.onImageLoad(this.$appendee));
+  appendIfLargeEnough($tiledArea) {
+    return (image) => {
+      const $image = $(image);
+      $image.bind('load', this.onImageLoad($tiledArea));
+    }
   }
 
-  onImageLoad($appendee) {
+  onImageLoad($tiledArea) {
     return (e) => {
       const image = e.target;
-      console.log(`h: ${image.height}, w: ${image.width}`)
+      // console.log(`h: ${image.height}, w: ${image.width}`)
       // if (image.height < 300 || image.width < 300) {
       //   return
       // }
-      debugger
-      $appendee.trigger('append', image.src);
+      $tiledArea.trigger('append', image.src);
     }
   }
 }

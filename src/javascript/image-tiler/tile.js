@@ -2,38 +2,66 @@ import $ from 'jquery'
 import _ from 'lodash'
 import { SearchedImage, fetchImage } from './image'
 
-function tileImages(imageUrls) {
-  var newWin = window.open(null, location.href);
-  var $newBd = $(newWin.document).find("body");
-  var $appendee = $("<div>").on('click .img', (e) => {
-    var $targetImg = $(e.target);
-    var $orgImg = $('<img>').attr({"src": $targetImg.attr('src')});
-    var $expanded = $orgImg.css({
-      position	: 'absolute',
-      top			: $(newWin).scrollTop() + 'px',
-      left		:'0px',
-    }).click(() => {
-      $expanded.remove();
-    });
-    $newBd.append($expanded);
-  });
-  var prevUrls = [];
-  $appendee.on('append', (e, url) => {
-    var exists = _.find(prevUrls, (prevUrl) => {
-      return prevUrl === url;
-    });
-    if (exists) {
+class TiledImagePage {
+
+  constructor(imageUrls) {
+    this.imageUrls = imageUrls;
+    this.appendedImageUrls = [];
+  }
+
+  tileImages() {
+    const newWindow = window.open(null, location.href);
+    this.$newWindow = $(newWindow);
+    this.$appendeeBody = $(newWindow.document).find('body');
+    this.$tiledArea = this.createTiledArea();
+    this.$appendeeBody.append(this.$tiledArea);
+    _.each(this.imageUrls, _.bind(this.appendImage, this));
+  }
+
+  createTiledArea() {
+    return $('<div>')
+      .on('click .img', _.bind(this.onTiledAreaClicked, this))
+      .on('append', _.bind(this.onImageAppended, this));
+  }
+
+  appendImage(i, imageUrl) {
+    new SearchedImage(imageUrl).appendImage(this.$tiledArea);
+  }
+
+  onTiledAreaClicked(e) {
+    const $targetImage = $(e.target);
+    this.$appendeeBody.append(this.getExpandableImage($targetImage));
+  }
+
+  getExpandableImage($targetImage) {
+    const $originalImage = $('<img>').attr({'src': $targetImage.attr('src')});
+    const $expanded = $originalImage.css({
+      position: 'absolute',
+      top: this.$newWindow.scrollTop() + 'px',
+      left:'0px',
+    })
+    return $expanded.on('click', (e) => { $(e.target).remove() });
+  }
+
+  onImageAppended(e, imageUrl) {
+    if (this.isAlreadyAppended(imageUrl)) {
       return;
     }
-    prevUrls.push(url);
-    _.uniq(prevUrls);
-    let $img = $("<img class='img'>").attr({"src":url, height:"200px", width:"200px"});
-    $appendee.append($img);
-  })
-  $.each(imageUrls, (i, imageUrl) => {
-    new SearchedImage($appendee, imageUrl).appendImage();
-  });
-  $newBd.append($appendee);
+    let $img = $("<img class='img'>").attr({
+      src: imageUrl,
+      height: '200px',
+      width: '200px'
+    });
+    this.$tiledArea.append($img);
+    this.appendedImageUrls.push(imageUrl);
+  }
+
+  isAlreadyAppended(imageUrl) {
+    const exists = _.find(this.appendedImageUrls , (appendedImageUrl) => {
+      return appendedImageUrl === imageUrl;
+    });
+    return exists;
+  }
 }
 
-export { tileImages }
+export default TiledImagePage
