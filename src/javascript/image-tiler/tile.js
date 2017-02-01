@@ -19,13 +19,19 @@ class TiledImagePage {
   }
 
   createTiledArea() {
-    return $('<div>')
-      .on('click .img', _.bind(this.onTiledAreaClicked, this))
-      .on('append', _.bind(this.onImageAppended, this));
+    return $('<div>').on('click .img', _.bind(this.onTiledAreaClicked, this));
   }
 
-  appendImage(i, imageUrl) {
-    new SearchedImage(imageUrl).appendImage(this.$tiledArea);
+  appendImage(imageUrl, i) {
+    const $tile = this.createEmptyImageDom();
+    this.$tiledArea.append($tile);
+    new SearchedImage(imageUrl, $tile, this).appendImage();
+  }
+
+  appendExtraImage(imageUrl) {
+    const $tile = this.createEmptyImageDom();
+    $tile.attr('src', imageUrl);
+    this.$tiledArea.append($tile);
   }
 
   onTiledAreaClicked(e) {
@@ -43,24 +49,18 @@ class TiledImagePage {
     return $expanded.on('click', (e) => { $(e.target).remove() });
   }
 
-  onImageAppended(e, imageUrl) {
-    if (this.isAlreadyAppended(imageUrl)) {
-      return;
-    }
-    let $img = $("<img class='img'>").attr({
-      src: imageUrl,
-      height: '200px',
-      width: '200px'
-    });
-    this.$tiledArea.append($img);
-    this.appendedImageUrls.push(imageUrl);
-  }
-
   isAlreadyAppended(imageUrl) {
     const exists = _.find(this.appendedImageUrls , (appendedImageUrl) => {
       return appendedImageUrl === imageUrl;
     });
     return exists;
+  }
+
+  createEmptyImageDom() {
+    return $("<img class='img'>").attr({
+      height: '200px',
+      width: '200px'
+    });
   }
 }
 

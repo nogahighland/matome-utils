@@ -36,7 +36,7 @@ class ImageTiler {
 
   getLink($a) {
     const href = $a.attr('href')
-    return isImage(href) || href;
+    return isImage(href) && href;
   }
 
 	initialize() {

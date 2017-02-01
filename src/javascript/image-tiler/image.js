@@ -4,30 +4,35 @@ import _ from 'lodash'
 const IMAGE_REGEXP = /(\.jpg|\.jpeg|\.png|\.gif|imepic)/i;
 
 class SearchedImage {
-  constructor(imageUrl) {
+  constructor(imageUrl, $tile, tiledArea) {
     this.imageUrl = imageUrl;
+    this.$tile = $tile;
+    this.tiledArea = tiledArea;
   }
 
-  appendImage($tiledArea) {
+  appendImage() {
     $.ajax({
       url : this.imageUrl,
       method : 'GET',
     })
-    .done(_.bind(this.fetchDone($tiledArea), this))
+    .done(_.bind(this.fetchDone(this.$tile, this.tiledArea), this))
     .fail(() => {});
   }
 
-  fetchDone($tiledArea) {
+  fetchDone($tile, tiledArea) {
     return (data, status, xhr) => {
       if (xhr.status != 200) {
         return;
       }
       const contentType = xhr.getResponseHeader('Content-Type');
       if (this.isImage(contentType)) {
-        $tiledArea.trigger('append', imageUrl);
+        $tile.attr('src', this.imageUrl);
 
-      } else if (this.isHtml(contentType)) {
-        _.each($(data).find('img'), _.bind(this.appendIfLargeEnough($tiledArea), this));
+      } else {
+        $tile.remove();
+        if (this.isHtml(contentType)) {
+          _.each($(data).find('img'), _.bind(this.appendIfLargeEnough(tiledArea), this));
+        }
       }
     }
   }
@@ -40,21 +45,20 @@ class SearchedImage {
     return /text\/html/.test(contentType);
   }
 
-  appendIfLargeEnough($tiledArea) {
+  appendIfLargeEnough(tiledArea) {
     return (image) => {
       const $image = $(image);
-      $image.bind('load', this.onImageLoad($tiledArea));
+      $image.bind('load', this.onImageLoad(tiledArea));
     }
   }
 
-  onImageLoad($tiledArea) {
+  onImageLoad(tiledArea) {
     return (e) => {
       const image = e.target;
-      // console.log(`h: ${image.height}, w: ${image.width}`)
-      // if (image.height < 300 || image.width < 300) {
-      //   return
-      // }
-      $tiledArea.trigger('append', image.src);
+      if (image.height < 300 || image.width < 300) {
+        return
+      }
+      tiledArea.appendExtraImage(image.src);
     }
   }
 }
