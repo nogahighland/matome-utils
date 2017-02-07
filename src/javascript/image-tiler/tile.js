@@ -49,13 +49,6 @@ class TiledImagePage {
     return $expanded.on('click', (e) => { $(e.target).remove() });
   }
 
-  isAlreadyAppended(imageUrl) {
-    const exists = _.find(this.appendedImageUrls , (appendedImageUrl) => {
-      return appendedImageUrl === imageUrl;
-    });
-    return exists;
-  }
-
   createEmptyImageDom() {
     return $("<img class='img'>").attr({
       height: '200px',
