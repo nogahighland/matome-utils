@@ -8,6 +8,9 @@ class ImageTiler {
   constructor($button) {
     this.$button = $button;
     this.images = getImageUrls();
+    setInterval(_.bind(() => {
+      this.images = getImageUrls();
+    }, this), 500);
     this.initialize();
   }
 
@@ -17,10 +20,10 @@ class ImageTiler {
       return;
     }
     this.$button.on('click', _.bind(this.tileImages, this));
-    this.tile = new TiledImagePage(this.images);
   }
 
   tileImages() {
+    this.tile = new TiledImagePage(this.images);
     this.tile.tileImages();
   }
 

@@ -4,10 +4,10 @@ import TumblrCollector from './tumblr-collector'
 import TwitterCollector from './twitter-collector'
 
 const COLLECTORS = [
-  new BasicCollector(),
   new InstagramCollector(),
   new TumblrCollector(),
-  new TwitterCollector()
+  new TwitterCollector(),
+  new BasicCollector()
 ];
 
 function getImageUrls() {
