@@ -1,11 +1,13 @@
 import Collector from './collector'
 
 class TwitterCollector extends Collector {
-  canHandle() { return false }
+  canHandle() { return /^https:\/\/twitter.com/.test(location.href) }
 
-  getSelector() { '' }
+  getSelector() { return 'div.AdaptiveMedia-photoContainer, div.js-adaptive-photo' }
 
-  getUrl($dom) { }
+  getUrl($dom) {
+    return $dom.find('img').attr('src');
+  }
 }
 
 export default TwitterCollector
