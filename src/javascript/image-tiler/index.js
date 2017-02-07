@@ -10,16 +10,22 @@ class ImageTiler {
     this.images = getImageUrls();
     setInterval(_.bind(() => {
       this.images = getImageUrls();
+      this.setButtonAvailable();
     }, this), 500);
     this.initialize();
   }
 
 	initialize() {
+    this.setButtonAvailable();
+    this.$button.on('click', _.bind(this.tileImages, this));
+  }
+
+  setButtonAvailable() {
 		if (!this.containsImages()) {
       this.$button.attr('disabled', true);
-      return;
+    } else {
+      this.$button.removeAttr('disabled');
     }
-    this.$button.on('click', _.bind(this.tileImages, this));
   }
 
   tileImages() {

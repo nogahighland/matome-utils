@@ -1,11 +1,13 @@
 import Collector from './collector'
 
 class InstagramCollector extends Collector {
-  canHandle() { return false }
+  canHandle() { return /^https:\/\/www.instagram.com/.test(location.href); }
 
-  getSelector() { '' }
+  getSelector() { return '._icyx7'; }
 
-  getUrl($dom) { }
+  getUrl($dom) {
+    return $dom.attr('src');
+  }
 }
 
 export default InstagramCollector
