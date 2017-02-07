@@ -5,7 +5,7 @@
   "description": "Add buttons to open only images.",
   "content_scripts": [
     {
-      "matches": ["https://*/*"],
+      "matches": ["http://*/*", "https://*/*"],
       "js": ["index.min.js"],
       "run_at": "document_end"
     }
