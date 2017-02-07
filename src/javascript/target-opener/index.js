@@ -3,7 +3,8 @@ import _ from 'lodash'
 
 class TargetOpener {
   constructor($button) {
-		this.titleRegexp = new RegExp($('head').find('title').text().trim().substring(0,10));
+    const partialTitle = $('head').find('title').text().trim().substring(0,10);
+		this.titleRegexp = new RegExp(_.escapeRegExp(partialTitle));
     this.$button = $button;
     this.url = '';
     this.prepare();
@@ -16,7 +17,7 @@ class TargetOpener {
 
   setTargetUrl(i, a) {
     const $a = $(a);
-    if (this.titleRegexp.test($a.text())) {
+    if (this.titleRegexp.test(_.escapeRegExp($a.text()))) {
       this.url = $a.attr('href');
     }
   }
