@@ -6,7 +6,7 @@ class InstagramCollector extends Collector {
   getSelector() { return '._icyx7'; }
 
   getUrl($dom) {
-    return $dom.attr('src');
+    return $dom.attr('src').replace(/\/[a-z]\d+x\d+\//, '/');
   }
 }
 
