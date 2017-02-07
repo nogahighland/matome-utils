@@ -29,7 +29,11 @@ class BasicCollector extends Collector {
   }
 
   getLink($a) {
-    const href = $a.attr('href')
+    const text = $a.text();
+    if (isImage(text)) {
+      return text;
+    }
+    const href = $a.attr('href');
     return isImage(href) && href;
   }
 }

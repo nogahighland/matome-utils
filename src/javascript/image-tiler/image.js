@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import _ from 'lodash'
 
-const IMAGE_REGEXP = /(\.jpg|\.jpeg|\.png|\.gif|imepic)/i;
+const IMAGE_REGEXP = /^https?:\/\/.+?(\.(jpe?g|png|gif)|imepic|imgur)/i;
 
 class SearchedImage {
   constructor(imageUrl, $tile, tiledArea) {
