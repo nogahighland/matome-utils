@@ -1,7 +1,6 @@
 import $ from 'jquery'
 import _ from 'lodash'
 import Collector from './collector'
-import { toAbs } from '../path'
 import { isImage } from '../image'
 
 class BasicCollector extends Collector {
@@ -14,7 +13,7 @@ class BasicCollector extends Collector {
 
   getUrl($a) {
     const imageUrl = this.getLinkFromTextNode($a) || this.getLink($a)
-    return !_.isEmpty(imageUrl) && toAbs(imageUrl);
+    return !_.isEmpty(imageUrl) && imageUrl;
   }
 
   getLinkFromTextNode($a) {

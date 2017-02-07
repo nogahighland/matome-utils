@@ -1,7 +1,7 @@
 import $ from 'jquery'
 
 function toAbs(path, hostUrl) {
-  if (/(^http:\/\/|^https:\/\/)/.test(path)) { // http://〜, https://〜
+  if (/^https?:\/\//.test(path)) {
     return path;
   }
   if (!hostUrl) {
