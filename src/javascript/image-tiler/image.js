@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import _ from 'lodash'
+import { toAbs } from './path'
 
 const IMAGE_REGEXP = /^https?:\/\/.+?(\.(jpe?g|png|gif)|imepic|imgur)/i;
 
@@ -89,7 +90,7 @@ class SearchedImage {
 }
 
 function isImage(url) {
-  return IMAGE_REGEXP.test(url);
+  return IMAGE_REGEXP.test(toAbs(url));
 }
 
 export { SearchedImage, isImage }

@@ -7,7 +7,7 @@ function toAbs(path, hostUrl) {
   if (!hostUrl) {
     hostUrl = location.protocol + '//' + location.host;
   }
-  if (/^\//.test(path)) { // /〜
+  if (/^\//.test(path) || !/\//.test(path)) { // /〜
     return hostUrl + path;
   }
 
