@@ -1,4 +1,6 @@
+import _ from 'lodash'
 import AnchorCollector from './anchor-collector'
+import TextNodeCollector from './text-node-collector'
 import InstagramCollector from './instagram-collector'
 import TumblrCollector from './tumblr-collector'
 import TwitterCollector from './twitter-collector'
@@ -7,7 +9,8 @@ const COLLECTORS = [
   new InstagramCollector(),
   new TumblrCollector(),
   new TwitterCollector(),
-  new AnchorCollector()
+  new AnchorCollector(),
+  new TextNodeCollector()
 ];
 
 function getImageUrls() {
@@ -17,7 +20,7 @@ function getImageUrls() {
       imageUrls = imageUrls.concat(collector.collect());
     }
   });
-  return imageUrls;
+  return _.uniq(imageUrls);
 }
 
 export default getImageUrls
