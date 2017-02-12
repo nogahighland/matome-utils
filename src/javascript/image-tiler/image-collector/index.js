@@ -1,4 +1,4 @@
-import BasicCollector from './basic-collector'
+import AnchorCollector from './anchor-collector'
 import InstagramCollector from './instagram-collector'
 import TumblrCollector from './tumblr-collector'
 import TwitterCollector from './twitter-collector'
@@ -7,7 +7,7 @@ const COLLECTORS = [
   new InstagramCollector(),
   new TumblrCollector(),
   new TwitterCollector(),
-  new BasicCollector()
+  new AnchorCollector()
 ];
 
 function getImageUrls() {

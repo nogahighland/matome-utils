@@ -3,7 +3,7 @@ import _ from 'lodash'
 import Collector from './collector'
 import { isImage } from '../image'
 
-class BasicCollector extends Collector {
+class AnchorCollector extends Collector {
 
   canHandle(url) {
     return true;
@@ -38,4 +38,4 @@ class BasicCollector extends Collector {
   }
 }
 
-export default BasicCollector
+export default AnchorCollector
