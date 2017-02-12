@@ -21,6 +21,7 @@ class SearchedImage {
   }
 
   headDone($tile, tiledArea) {
+    const extractImagesFromHtml = _.bind(this.extractImagesFromHtml, this);
     return (data, status, xhr) => {
       if (xhr.status != 200) {
         return;
@@ -38,7 +39,7 @@ class SearchedImage {
       }
 
       if (this.isHtml(contentType)) {
-        this.extractImagesFromHtml();
+        extractImagesFromHtml();
         return;
       }
     }
@@ -49,7 +50,7 @@ class SearchedImage {
       url : this.imageUrl,
       method : 'GET',
     })
-    .done(_.bind(this.getDone(this.$tile, this.tiledArea), this))
+    .done(_.bind(this.getHtmlDone(this.$tile, this.tiledArea), this))
     .fail(() => {});
   }
 
