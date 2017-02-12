@@ -13,13 +13,13 @@ class SearchedImage {
   appendImage() {
     $.ajax({
       url : this.imageUrl,
-      method : 'GET',
+      method : 'HEAD',
     })
-    .done(_.bind(this.fetchDone(this.$tile, this.tiledArea), this))
+    .done(_.bind(this.headDone(this.$tile, this.tiledArea), this))
     .fail(() => {});
   }
 
-  fetchDone($tile, tiledArea) {
+  headDone($tile, tiledArea) {
     return (data, status, xhr) => {
       if (xhr.status != 200) {
         return;
@@ -27,18 +27,43 @@ class SearchedImage {
       const contentType = xhr.getResponseHeader('Content-Type');
       if (this.isImage(contentType)) {
         $tile.attr('src', this.imageUrl);
-
-      } else {
-        $tile.remove();
-        if (this.isHtml(contentType)) {
-          _.each($(data).find('img'), _.bind(this.appendIfLargeEnough(tiledArea), this));
-        }
+        return;
       }
+      $tile.remove();
+
+      if (this.isVideo(contentType)) {
+        tiledArea.appendVideo(this.imageUrl);
+        return;
+      }
+
+      if (this.isHtml(contentType)) {
+        this.extractImagesFromHtml();
+        return;
+      }
+    }
+  }
+
+  extractImagesFromHtml() {
+    $.ajax({
+      url : this.imageUrl,
+      method : 'GET',
+    })
+    .done(_.bind(this.getDone(this.$tile, this.tiledArea), this))
+    .fail(() => {});
+  }
+
+  getHtmlDone($tile, tiledArea) {
+    return (data, status, xhr) => {
+      _.each($(data).find('img'), _.bind(this.appendIfLargeEnough(tiledArea), this));
     }
   }
 
   isImage(contentType) {
     return /^image\/.+/.test(contentType);
+  }
+
+  isVideo(contentType) {
+    return /^video\/.+/.test(contentType);
   }
 
   isHtml(contentType) {

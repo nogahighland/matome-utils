@@ -5,12 +5,18 @@ class TumblrCollector extends Collector {
     return /https:\/\/www.tumblr.com/.test(location.href);
   }
 
-  getSelector() { return 'img.post_media_photo, img.image' }
+  getSelector() { return 'img.post_media_photo, img.image, video' }
 
   getUrl($dom) {
-    return $dom.attr('src').replace(/^(.+?)(_\d+)(\.[a-z]+)$/, function(src, baseUrl, sizeSpecifier, extension) {
-      return `${baseUrl}_1280${extension}`;
-    });
+    if ($dom.attr('src')) {
+      return $dom.attr('src').replace(/^(.+?)(_\d+)(\.[a-z]+)$/, function(src, baseUrl, sizeSpecifier, extension) {
+        return `${baseUrl}_1280${extension}`;
+      });
+    } else {
+      return $dom[0].currentSrc.replace(/^.+\/(tumblr_[0-9a-zA-Z]+)\/\d+$/, function(src, videoId) {
+        return `https://vtt.tumblr.com/${videoId}.mp4`
+      });
+    }
   }
 }
 

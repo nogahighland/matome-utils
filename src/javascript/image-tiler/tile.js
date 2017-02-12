@@ -34,6 +34,16 @@ class TiledImagePage {
     this.$tiledArea.append($tile);
   }
 
+  appendVideo(videoUrl) {
+    const $video = $('<video>').attr({
+      src: videoUrl,
+      controls: true,
+      height: '200px',
+      width: '200px'
+    }).addClass('video');
+    this.$tiledArea.append($video);
+  }
+
   onTiledAreaClicked(e) {
     const $targetImage = $(e.target);
     this.$appendeeBody.append(this.getExpandableImage($targetImage));
@@ -50,10 +60,10 @@ class TiledImagePage {
   }
 
   createEmptyImageDom() {
-    return $("<img class='img'>").attr({
+    return $("<img>").attr({
       height: '200px',
       width: '200px'
-    });
+    }).addClass('.img');
   }
 }
 
