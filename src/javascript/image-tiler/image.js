@@ -9,15 +9,20 @@ class SearchedImage {
     this.imageUrl = imageUrl;
     this.$tile = $tile;
     this.tiledArea = tiledArea;
+    this.pageProtocol = location.protocol;
   }
 
   appendImage() {
     $.ajax({
-      url : this.imageUrl,
+      url : this.getImageUrl(),
       method : 'HEAD',
     })
     .done(_.bind(this.headDone(this.$tile, this.tiledArea), this))
     .fail(() => {});
+  }
+
+  getImageUrl() {
+    return this.imageUrl.replace(/^https?:/, this.pageProtocol);
   }
 
   headDone($tile, tiledArea) {
