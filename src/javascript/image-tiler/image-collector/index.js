@@ -5,6 +5,7 @@ import InstagramCollector from './instagram-collector'
 import TumblrCollector from './tumblr-collector'
 import TumblrIndividualCollector from './tumblr-individual-collector'
 import TwitterCollector from './twitter-collector'
+import blacklist from '../blacklist'
 
 const COLLECTORS = [
   new InstagramCollector(),
@@ -22,7 +23,8 @@ function getImageUrls() {
       imageUrls = imageUrls.concat(collector.collect());
     }
   });
-  return _.uniq(imageUrls);
+  imageUrls = _.uniq(imageUrls);
+  return _.filter(imageUrls, (url) => !_.includes(blacklist, url));
 }
 
 export default getImageUrls
