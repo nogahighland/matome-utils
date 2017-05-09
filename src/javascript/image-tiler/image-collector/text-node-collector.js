@@ -28,7 +28,7 @@ class TextNodeCollector extends Collector {
   }
 
   getImageUrlFromCorruptedUrl(text) {
-    const match = IMAGE_REGEXP.exec(text);
+    const match = CORRUPTED_IMAGE_REGEXP.exec(text);
     if (match) {
       return `h${match[0]}`.trim();
     }
