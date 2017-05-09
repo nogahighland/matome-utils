@@ -50,5 +50,12 @@ export default [
   'http://livedoor.blogimg.jp/himasoku123/imgs/f/6/f6165625.png',
   'http://livedoor.blogimg.jp/himasoku123/imgs/f/6/f63760c6.jpg',
   'http://livedoor.blogimg.jp/himasoku123/imgs/f/d/fddbc134.jpg',
-  'http://livedoor.r.blogimg.jp/himasoku123/imgs/8/f/8fa49c77.jpg'
+  'http://livedoor.r.blogimg.jp/himasoku123/imgs/8/f/8fa49c77.jpg',
+  'http://livedoor.blogimg.jp/chihhylove/imgs/4/9/49bb5df0.jpg',
+  'http://livedoor.blogimg.jp/chihhylove/imgs/7/2/7209ed10.gif',
+  'http://livedoor.blogimg.jp/chihhylove/imgs/9/0/90646772.png',
+  'http://livedoor.blogimg.jp/chihhylove/imgs/9/2/92293d9a.png',
+  'http://livedoor.blogimg.jp/chihhylove/imgs/9/f/9f6df119.jpg',
+  'http://livedoor.blogimg.jp/chihhylove/imgs/c/7/c74d74ac.png',
+  'http://livedoor.blogimg.jp/chihhylove/imgs/d/e/de2e64b5.png',
 ];
