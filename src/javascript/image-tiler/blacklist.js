@@ -58,4 +58,7 @@ export default [
   'http://livedoor.blogimg.jp/chihhylove/imgs/9/f/9f6df119.jpg',
   'http://livedoor.blogimg.jp/chihhylove/imgs/c/7/c74d74ac.png',
   'http://livedoor.blogimg.jp/chihhylove/imgs/d/e/de2e64b5.png',
+  'http://parts.blog.livedoor.jp/img/emoji/1/palette.png\'; ',
+  'http://img.shinobi.jp/tadaima/fj.gif"',
+  'http://t.blog.livedoor.jp/u.gif"'
 ];
