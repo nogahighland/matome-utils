@@ -18,7 +18,7 @@ class SearchedImage {
       method : 'HEAD',
     })
     .done(_.bind(this.headDone(this.$tile, this.tiledArea), this))
-    .fail(() => {});
+    .fail(_.bind(() => this.$tile.remove(), this));
   }
 
   getImageUrl() {
