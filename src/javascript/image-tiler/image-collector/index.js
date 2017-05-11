@@ -24,7 +24,7 @@ function getImageUrls() {
     }
   });
   imageUrls = _.uniq(imageUrls);
-  return _.filter(imageUrls, (url) => !_.includes(blacklist, url));
+  return _.difference(imageUrls, blacklist);
 }
 
 export default getImageUrls
