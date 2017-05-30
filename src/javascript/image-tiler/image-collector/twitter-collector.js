@@ -6,7 +6,7 @@ class TwitterCollector extends Collector {
   getSelector() { return 'div.AdaptiveMedia-photoContainer, div.js-adaptive-photo' }
 
   getUrl($dom) {
-    return $dom.find('img').attr('src');
+    return `${$dom.find('img').attr('src')}:large`;
   }
 }
 
