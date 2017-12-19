@@ -5,9 +5,11 @@ import InstagramCollector from './instagram-collector'
 import TumblrCollector from './tumblr-collector'
 import TumblrIndividualCollector from './tumblr-individual-collector'
 import TwitterCollector from './twitter-collector'
+import Piary from './piary'
 import blacklist from '../blacklist'
 
 const COLLECTORS = [
+  new Piary(),
   new InstagramCollector(),
   new TumblrCollector(),
   new TumblrIndividualCollector(),
