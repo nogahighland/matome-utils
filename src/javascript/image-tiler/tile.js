@@ -10,7 +10,7 @@ class TiledImagePage {
   }
 
   tileImages() {
-    const newWindow = window.open(null, location.href);
+    const newWindow = window.open('', location.href);
     this.$newWindow = $(newWindow);
     this.$appendeeBody = $(newWindow.document).find('body');
     this.$tiledArea = this.createTiledArea();
