@@ -17,25 +17,25 @@
   },
   "homepage": "https://github.com/nogahighland/matome-utils#readme",
   "dependencies": {
-    "jquery": "^3.1.1",
-    "lodash": "^4.17.4"
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "babel-core": "^6.21.0",
-    "babel-preset-es2015": "^6.18.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "babelify": "^7.3.0",
-    "browserify": "^13.1.1",
+    "browserify": "^13.3.0",
     "del": "^2.2.2",
-    "eslint": "^3.12.2",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb": "^13.0.0",
     "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-load-plugins": "^1.4.0",
+    "gulp-babel": "^6.1.3",
+    "gulp-load-plugins": "^1.5.0",
     "gulp-notify": "^2.2.0",
-    "gulp-plumber": "^1.1.0",
+    "gulp-plumber": "^1.2.0",
     "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^2.0.0",
-    "require-dir": "^0.3.1",
+    "gulp-uglify": "^2.1.2",
+    "require-dir": "^0.3.2",
     "through2": "^2.0.3"
   },
   "babel": {
