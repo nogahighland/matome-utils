@@ -9,12 +9,14 @@ const fileArray = [
   'index.js',
 ];
 
-gulp.task('js', () => {
+gulp.task('js', (done) => {
   fileArray.forEach((filePath) => buildJs(filePath));
+  done();
 });
 
-gulp.task('js-prod', () => {
+gulp.task('js-prod', (done) => {
   fileArray.forEach((filePath) => buildJs(filePath, true));
+  done();
 });
 
 function buildJs(filePath, uglify) {

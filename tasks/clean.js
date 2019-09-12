@@ -2,6 +2,7 @@
 import gulp from 'gulp';
 import del from 'del';
 
-gulp.task('clean', () => {
+gulp.task('clean', (done) => {
   del('./.dest');
+  done();
 });
