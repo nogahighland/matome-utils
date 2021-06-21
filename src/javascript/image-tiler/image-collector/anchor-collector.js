@@ -1,11 +1,10 @@
-import $ from 'jquery'
 import _ from 'lodash'
 import Collector from './collector'
 import { isImage } from '../image'
 
 class AnchorCollector extends Collector {
 
-  canHandle(url) {
+  canHandle() {
     return true;
   }
 

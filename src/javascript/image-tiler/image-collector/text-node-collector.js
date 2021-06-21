@@ -1,7 +1,5 @@
-import $ from 'jquery'
 import _ from 'lodash'
 import Collector from './collector'
-import { isImage } from '../image'
 
 const IMAGE_REGEXP = /https?:\/\/\S+(\.(jpe?g|png|gif)|imepic|imgur)\S*?\s/i;
 const CORRUPTED_IMAGE_REGEXP = /ttps?:\/\/\S+(\.(jpe?g|png|gif)|imepic|imgur)\S*?\s/i;

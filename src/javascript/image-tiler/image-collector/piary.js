@@ -1,10 +1,9 @@
-import $ from 'jquery'
 import _ from 'lodash'
 import Collector from './collector'
 import { toAbs } from '../path'
 
 class Piary extends Collector {
-  canHandle(url) {
+  canHandle() {
     return /www\.piary\.jp/.test(location.href)
   }
 

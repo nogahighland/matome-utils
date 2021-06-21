@@ -1,6 +1,4 @@
-import $ from 'jquery'
 import _ from 'lodash'
-import { toAbs } from './path'
 import TiledImagePage from './tile'
 import getImageUrls from './image-collector'
 

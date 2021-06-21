@@ -7,6 +7,7 @@ class TwitterCollector extends Collector {
 
   getUrl($dom) {
     const url = $dom.attr('src');
+    console.log(url)
     if (/\/media\//.test(url)) {
       return url.replace(/&name.+/, '');
     }

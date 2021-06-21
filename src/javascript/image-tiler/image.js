@@ -13,6 +13,7 @@ class SearchedImage {
   }
 
   appendImage() {
+    console.log(this.getImageUrl())
     $.ajax({
       url : this.getImageUrl(),
       method : 'HEAD',
