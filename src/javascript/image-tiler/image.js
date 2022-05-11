@@ -28,13 +28,25 @@ class SearchedImage {
 
   headDone($tile, tiledArea) {
     const extractImagesFromHtml = _.bind(this.extractImagesFromHtml, this);
-    return (data, status, xhr) => {
+    return (_data, _status, xhr) => {
       if (xhr.status != 200) {
         return;
       }
       const contentType = xhr.getResponseHeader('Content-Type');
       if (this.isImage(contentType)) {
-        $tile.attr('src', this.imageUrl);
+        if (new URL(this.imageUrl).host == "scontent-nrt1-1.cdninstagram.com") {
+          fetch(this.imageUrl).then(r => {
+            r.blob().then(b => {
+              b.arrayBuffer().then(buffer => {
+                const base64 = this.toBase64(buffer)
+                $tile.attr('src', 'data:image/bmp;base64,'+ base64)
+              })
+            })
+          })
+          return
+        } else {
+          $tile.attr('src', this.imageUrl);
+        }
         return;
       }
       $tile.remove();
@@ -60,8 +72,8 @@ class SearchedImage {
     .fail(() => {});
   }
 
-  getHtmlDone($tile, tiledArea) {
-    return (data, status, xhr) => {
+  getHtmlDone(_$tile, tiledArea) {
+    return (data, _status, _xhr) => {
       _.each($(data).find('img'), _.bind(this.appendIfLargeEnough(tiledArea), this));
     }
   }
@@ -93,6 +105,16 @@ class SearchedImage {
       }
       tiledArea.appendExtraImage(image.src);
     }
+  }
+
+  toBase64(blob) {
+    let binaryString = "";
+    const bytes = new Uint8Array(blob);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binaryString += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binaryString)
   }
 }
 

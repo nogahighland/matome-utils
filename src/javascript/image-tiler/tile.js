@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import _ from 'lodash'
-import { SearchedImage, fetchImage } from './image'
+import { SearchedImage } from './image'
 
 class TiledImagePage {
 
@@ -22,7 +22,7 @@ class TiledImagePage {
     return $('<div>').on('click .img', _.bind(this.onTiledAreaClicked, this));
   }
 
-  appendImage(imageUrl, i) {
+  appendImage(imageUrl) {
     const $tile = this.createEmptyImageDom();
     this.$tiledArea.append($tile);
     new SearchedImage(imageUrl, $tile, this).appendImage();
