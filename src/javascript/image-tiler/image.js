@@ -34,12 +34,15 @@ class SearchedImage {
       }
       const contentType = xhr.getResponseHeader('Content-Type');
       if (this.isImage(contentType)) {
-        if (new URL(this.imageUrl).host == "scontent-nrt1-1.cdninstagram.com") {
+        const url = new URL(this.imageUrl)
+        if (url.host == "scontent-nrt1-1.cdninstagram.com") {
           fetch(this.imageUrl).then(r => {
             r.blob().then(b => {
               b.arrayBuffer().then(buffer => {
                 const base64 = this.toBase64(buffer)
-                $tile.attr('src', 'data:image/bmp;base64,'+ base64)
+                const pathArray = url.pathname.split('/')
+                const filename = pathArray[pathArray.length - 1]
+                $tile.attr('src', 'data:image/bmp;name=' + filename + ';base64,' + base64)
               })
             })
           })

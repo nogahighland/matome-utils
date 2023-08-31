@@ -1,9 +1,9 @@
 import Collector from './collector'
 
 class InstagramCollector extends Collector {
-  canHandle() { return /^https:\/\/www.instagram.com/.test(location.href); }
+  canHandle() {return /^https:\/\/www.instagram.com/.test(location.href);}
 
-  getSelector() { return '.KL4Bh > img'; }
+  getSelector() {return '._aagv > img';}
 
   getUrl($dom) {
     return $dom.attr('src');
